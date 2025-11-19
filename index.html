@@ -4,35 +4,37 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>HealthyEats — Planificador y Monitor de Alimentación</title>
-  <!-- CDN de Chart.js para gráficos -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    :root{
-      --accent:#3b82f6; --muted:#6b7280; --bg:#f8fafc; --card:#ffffff;
-      --glass: rgba(255,255,255,0.6);
+    :root {
+      --accent: #3b82f6; --muted: #6b7280; --bg: #f8fafc; --card: #ffffff;
       font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
     }
-    body{margin:0;background:linear-gradient(180deg,#eef2ff,#f8fafc);color:#111827}
-    header{background:var(--card);padding:14px 20px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(15,23,42,0.06)}
-    header h1{margin:0;font-size:18px;color:var(--accent)}
-    .container{display:grid;grid-template-columns:260px 1fr;gap:18px;padding:18px;max-width:1200px;margin:18px auto}
-    nav{background:var(--card);padding:12px;border-radius:10px;box-shadow:0 6px 18px rgba(2,6,23,0.04)}
-    nav button{display:block;width:100%;padding:10px;border:0;background:none;text-align:left;border-radius:8px;margin-bottom:8px;color:#111827}
-    nav button.active{background:linear-gradient(90deg,var(--accent),#60a5fa33);color:var(--accent);font-weight:600}
-    main{min-height:70vh}
-    .card{background:var(--card);padding:16px;border-radius:10px;box-shadow:0 6px 18px rgba(2,6,23,0.04);margin-bottom:14px}
-    form .row{display:flex;gap:10px}
-    label{font-size:13px;color:var(--muted)}
-    input[type=text],input[type=number],select,textarea{width:100%;padding:8px;border:1px solid #e5e7eb;border-radius:8px}
-    button.primary{background:var(--accent);color:white;border:0;padding:10px 12px;border-radius:8px}
-    .meals-list{max-height:200px;overflow:auto}
-    .meal-item{display:flex;justify-content:space-between;padding:8px;border-bottom:1px dashed #eef2ff}
-    .flex{display:flex;gap:12px}
-    .muted{color:var(--muted);font-size:13px}
-    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-    footer{padding:12px;text-align:center;color:var(--muted)}
-    .small{font-size:13px}
-    @media(max-width:900px){.container{grid-template-columns:1fr;padding:12px}}
+    body { margin: 0; background: linear-gradient(180deg, #eef2ff, #f8fafc); color: #111827; }
+    header { background: var(--card); padding: 14px 20px; display: flex; align-items: center; gap: 12px; box-shadow: 0 2px 8px rgba(15,23,42,0.06); }
+    header h1 { margin: 0; font-size: 18px; color: var(--accent); }
+    .container { display: grid; grid-template-columns: 260px 1fr; gap: 18px; padding: 18px; max-width: 1200px; margin: 18px auto; }
+    nav { background: var(--card); padding: 12px; border-radius: 10px; box-shadow: 0 6px 18px rgba(2,6,23,0.04); }
+    nav button { display: block; width: 100%; padding: 10px; border: 0; background: none; text-align: left; border-radius: 8px; margin-bottom: 8px; color: #111827; }
+    nav button.active { background: linear-gradient(90deg, var(--accent), #60a5fa33); color: var(--accent); font-weight: 600; }
+    main { min-height: 70vh; }
+    .card { background: var(--card); padding: 16px; border-radius: 10px; box-shadow: 0 6px 18px rgba(2,6,23,0.04); margin-bottom: 14px; }
+    form .row { display: flex; gap: 10px; }
+    label { font-size: 13px; color: var(--muted); }
+    input[type=text], input[type=number], select, textarea { width: 100%; padding: 8px; border: 1px solid #e5e7eb; border-radius: 8px; }
+    button.primary { background: var(--accent); color: white; border: 0; padding: 10px 12px; border-radius: 8px; }
+    .meals-list { max-height: 200px; overflow: auto; }
+    .meal-item { display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px dashed #eef2ff; }
+    .flex { display: flex; gap: 12px; }
+    .muted { color: var(--muted); font-size: 13px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+    footer { padding: 12px; text-align: center; color: var(--muted); }
+    .small { font-size: 13px; }
+    @media(max-width:900px){ .container { grid-template-columns: 1fr; padding: 12px } }
+
+    /* Estilos de login */
+    #login-screen { padding: 40px; text-align: center; }
+    #login-screen input { margin: 8px 0; width: 200px; }
   </style>
 </head>
 <body>
@@ -43,8 +45,26 @@
     <div class="muted small">Local (sin servidor) — guarda en el navegador</div>
   </header>
 
-  <div class="container">
-    <nav>
+  <div id="login-screen">
+    <h2>Iniciar sesión</h2>
+    <div>
+      <label><input type="radio" name="role" value="paciente" checked> Paciente</label>
+      <label><input type="radio" name="role" value="doctor"> Doctor</label>
+    </div>
+    <div>
+      <input type="text" id="login-username" placeholder="Usuario" />
+    </div>
+    <div>
+      <input type="password" id="login-password" placeholder="Contraseña" />
+    </div>
+    <div>
+      <button id="btn-login" class="primary">Entrar</button>
+    </div>
+    <div id="login-error" class="muted small"></div>
+  </div>
+
+  <div class="container" style="display:none" id="app-container">
+    <nav id="nav-menu">
       <button id="btn-dashboard" class="active">Panel</button>
       <button id="btn-register">Registrar comida</button>
       <button id="btn-planner">Planes de menú</button>
@@ -55,11 +75,10 @@
     </nav>
 
     <main>
-      <!-- Dashboard -->
+      <!-- Dashboard Paciente-->
       <section id="view-dashboard" class="card">
         <h2>Panel</h2>
-        <p class="muted">Visión rápida de tu consumo y próximos planes.</p>
-
+        <p class="muted">Visión rápida de tu consumo, mensajes del doctor y próximos planes.</p>
         <div class="grid-3" style="margin-top:12px">
           <div class="card" id="summary-card">
             <h3>Hoy</h3>
@@ -79,6 +98,11 @@
         <div class="card" style="margin-top:14px">
           <h3>Últimas comidas</h3>
           <div class="meals-list" id="meals-list"></div>
+        </div>
+
+        <div class="card" style="margin-top:14px">
+          <h3>Mensajes del Doctor</h3>
+          <div id="messages-list"></div>
         </div>
       </section>
 
@@ -152,7 +176,7 @@
       <!-- Recetas -->
       <section id="view-recipes" class="card" style="display:none">
         <h2>Recetas</h2>
-        <p class="muted">Consulta, busca y añade recetas a tus planes.</p>
+        <p class="muted">Consulta, busca y añade recetas a tus planes / comidas.</p>
 
         <div style="display:flex;gap:12px;margin-top:8px">
           <div style="flex:1">
@@ -167,11 +191,39 @@
         <div style="margin-top:12px" id="recipes-container"></div>
       </section>
 
-      <!-- Analisis -->
+      <!-- Análisis -->
       <section id="view-analysis" class="card" style="display:none">
         <h2>Análisis</h2>
         <p class="muted">Gráficas de calorías y macros (7 días).</p>
         <canvas id="chart-cals" style="max-height:260px"></canvas>
+      </section>
+
+      <!-- Vista Doctor -->
+      <section id="view-doctor" class="card" style="display:none">
+        <h2>Panel Doctor</h2>
+        <p class="muted">Lista de pacientes y envío de recetas/menús.</p>
+        <div id="patients-list" class="meals-list"></div>
+
+        <div class="card" style="margin-top:14px">
+          <h3>Enviar mensaje a paciente</h3>
+          <div class="row">
+            <div style="flex:1">
+              <label>Selecciona paciente</label>
+              <select id="select-patient"></select>
+            </div>
+          </div>
+          <div style="margin-top:10px">
+            <label>Asunto</label>
+            <input type="text" id="msg-subject" placeholder="Ej: Receta para la cena" />
+          </div>
+          <div style="margin-top:10px">
+            <label>Mensaje / Plan</label>
+            <textarea id="msg-body" rows="4" placeholder="Escribe aquí la receta o plan..."></textarea>
+          </div>
+          <div style="margin-top:10px; text-align:right">
+            <button id="btn-send-msg" class="primary">Enviar</button>
+          </div>
+        </div>
       </section>
 
     </main>
@@ -180,110 +232,167 @@
   <footer>HealthyEats • Proyecto listo para subir a GitHub • Hecho con ❤️</footer>
 
   <script>
-    // --- Datos locales (simple localStorage) ---
-    const DB_KEY = 'healthy_eats_db_v1';
-    const defaultRecipes = [
-      {id:1,name:'Ensalada mixta',cal:220,prot:6,fat:14,carb:12,ingredients:'lechuga, tomate, aguacate, aceite de oliva',steps:'Mezclar y servir.'},
-      {id:2,name:'Pollo a la plancha con arroz',cal:520,prot:40,fat:12,carb:50,ingredients:'pechuga, arroz, especias',steps:'Cocinar pollo y arroz.'},
-      {id:3,name:'Batido de fruta',cal:180,prot:6,fat:2,carb:36,ingredients:'plátano, leche, miel',steps:'Licuar y servir.'}
-    ];
+    const DB_KEY = 'healthy_eats_db_v2';
 
-    function loadDB(){
+    function initDBIfNeeded() {
       const raw = localStorage.getItem(DB_KEY);
-      if(!raw) return {meals:[],plans:[],recipes:defaultRecipes};
-      try{return JSON.parse(raw);}catch(e){return {meals:[],plans:[],recipes:defaultRecipes}}}
-    function saveDB(db){localStorage.setItem(DB_KEY,JSON.stringify(db))}
-
-    let DB = loadDB();
-
-    // --- UI helpers ---
-    const views = {
-      dashboard:document.getElementById('view-dashboard'),
-      register:document.getElementById('view-register'),
-      planner:document.getElementById('view-planner'),
-      recipes:document.getElementById('view-recipes'),
-      analysis:document.getElementById('view-analysis')
+      if (!raw) {
+        const users = [
+          { id: 1, role: 'paciente', username: 'paciente1', password: '1234', messages: [] },
+          { id: 2, role: 'paciente', username: 'paciente2', password: 'abcd', messages: [] },
+          { id: 3, role: 'paciente', username: 'paciente3', password: '1111', messages: [] },
+          { id: 4, role: 'paciente', username: 'paciente4', password: 'pass', messages: [] },
+          { id: 999, role: 'doctor', username: 'doctor', password: 'admin' }
+        ];
+        const db = {
+          users: users,
+          meals: [],        // todas las comidas, pero vamos a filtrar por usuario
+          plans: [],
+          recipes: [
+            { id: 1, name: 'Ensalada mixta', cal: 220, prot: 6, fat: 14, carb: 12, ingredients: 'lechuga, tomate, aguacate, aceite de oliva', steps: 'Mezclar y servir.' },
+            { id: 2, name: 'Pollo a la plancha con arroz', cal: 520, prot: 40, fat: 12, carb: 50, ingredients: 'pechuga, arroz, especias', steps: 'Cocinar pollo y arroz.' },
+            { id: 3, name: 'Batido de fruta', cal: 180, prot: 6, fat: 2, carb: 36, ingredients: 'plátano, leche, miel', steps: 'Licuar y servir.' }
+          ],
+        };
+        localStorage.setItem(DB_KEY, JSON.stringify(db));
+        return db;
+      } else {
+        try {
+          return JSON.parse(raw);
+        } catch (e) {
+          console.error('Error parsing DB, reinicializando:', e);
+          localStorage.removeItem(DB_KEY);
+          return initDBIfNeeded();
+        }
+      }
     }
 
-    function showView(name){
-      Object.values(views).forEach(v=>v.style.display='none');
-      views[name].style.display='block';
-      document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
-      document.getElementById('btn-'+name).classList.add('active');
+    function saveDB(db) {
+      localStorage.setItem(DB_KEY, JSON.stringify(db));
+    }
+
+    let DB = initDBIfNeeded();
+    let currentUser = null;
+
+    // — Elementos UI —
+    const loginScreen = document.getElementById('login-screen');
+    const appContainer = document.getElementById('app-container');
+    const loginError = document.getElementById('login-error');
+
+    document.getElementById('btn-login').onclick = () => {
+      const role = document.querySelector('input[name="role"]:checked').value;
+      const username = document.getElementById('login-username').value.trim();
+      const password = document.getElementById('login-password').value;
+      const user = DB.users.find(u => u.username === username && u.password === password && u.role === role);
+      if (!user) {
+        loginError.innerText = 'Usuario o contraseña incorrectos.';
+        return;
+      }
+      currentUser = user;
+      loginScreen.style.display = 'none';
+      appContainer.style.display = '';
+      setupNavForRole();
+      refreshAll();
+    };
+
+    const views = {
+      dashboard: document.getElementById('view-dashboard'),
+      register: document.getElementById('view-register'),
+      planner: document.getElementById('view-planner'),
+      recipes: document.getElementById('view-recipes'),
+      analysis: document.getElementById('view-analysis'),
+      doctor: document.getElementById('view-doctor')
+    };
+
+    function showView(name) {
+      Object.values(views).forEach(v => v.style.display = 'none');
+      views[name].style.display = 'block';
+      document.querySelectorAll('#nav-menu button').forEach(b => b.classList.remove('active'));
+      const btn = document.getElementById('btn-' + name);
+      if (btn) btn.classList.add('active');
       refreshAll();
     }
 
-    document.getElementById('btn-dashboard').onclick=()=>showView('dashboard');
-    document.getElementById('btn-register').onclick=()=>showView('register');
-    document.getElementById('btn-planner').onclick=()=>showView('planner');
-    document.getElementById('btn-recipes').onclick=()=>showView('recipes');
-    document.getElementById('btn-analysis').onclick=()=>showView('analysis');
+    function setupNavForRole() {
+      const nav = document.getElementById('nav-menu');
+      nav.innerHTML = '';
+      if (currentUser.role === 'paciente') {
+        // botones para paciente
+        ['dashboard', 'register', 'planner', 'recipes', 'analysis'].forEach(view => {
+          const btn = document.createElement('button');
+          btn.id = 'btn-' + view;
+          btn.innerText = view.charAt(0).toUpperCase() + view.slice(1);
+          btn.onclick = () => showView(view);
+          if (view === 'dashboard') btn.classList.add('active');
+          nav.appendChild(btn);
+        });
+      } else if (currentUser.role === 'doctor') {
+        // botón solo para doctores
+        const btn = document.createElement('button');
+        btn.id = 'btn-doctor';
+        btn.innerText = 'Pacientes';
+        btn.classList.add('active');
+        btn.onclick = () => showView('doctor');
+        nav.appendChild(btn);
+      }
+    }
 
-    // --- Registrar comida ---
-    document.getElementById('form-meal').addEventListener('submit',function(e){
+    // — Funcionalidades de paciente (registrar comidas, planes, recetas) —
+
+    document.getElementById('form-meal').addEventListener('submit', function (e) {
       e.preventDefault();
       const name = document.getElementById('meal-name').value.trim();
-      const cal = Number(document.getElementById('meal-cal').value)||0;
-      const prot = Number(document.getElementById('meal-prot').value)||0;
-      const fat = Number(document.getElementById('meal-fat').value)||0;
-      const carb = Number(document.getElementById('meal-carb').value)||0;
-      const notes = document.getElementById('meal-notes').value||'';
+      const cal = Number(document.getElementById('meal-cal').value) || 0;
+      const prot = Number(document.getElementById('meal-prot').value) || 0;
+      const fat = Number(document.getElementById('meal-fat').value) || 0;
+      const carb = Number(document.getElementById('meal-carb').value) || 0;
+      const notes = document.getElementById('meal-notes').value || '';
       let dt = document.getElementById('meal-datetime').value.trim();
-      if(!dt){ const now = new Date(); dt = now.toISOString().slice(0,16).replace('T',' ')}
-      const meal = {id:Date.now(),name,cal,prot,fat,carb,notes,datetime:dt};
-      DB.meals.push(meal); saveDB(DB); this.reset(); refreshAll(); alert('Comida guardada.');
+      if (!dt) {
+        const now = new Date();
+        dt = now.toISOString().slice(0, 16).replace('T', ' ');
+      }
+      const meal = {
+        id: Date.now(),
+        userId: currentUser.id,  // **asociar la comida al paciente**
+        name, cal, prot, fat, carb, notes, datetime: dt
+      };
+      DB.meals.push(meal);
+      saveDB(DB);
+      this.reset();
+      refreshAll();
+      alert('Comida guardada.');
     });
 
-    // --- Render listas ---
-    function refreshMealsList(){
-      const container = document.getElementById('meals-list'); container.innerHTML='';
-      const slice = DB.meals.slice(-30).reverse();
-      if(slice.length===0){container.innerHTML='<div class="muted">Aún no has registrado comidas.</div>';return}
-      slice.forEach(m=>{
-        const div = document.createElement('div'); div.className='meal-item';
-        div.innerHTML = `<div><strong>${escapeHtml(m.name)}</strong><div class=muted>${m.datetime}</div></div><div class=muted>${m.cal} kcal</div>`;
-        container.appendChild(div);
-      });
-    }
-
-    function escapeHtml(s){return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')}
-
-    // --- Planes ---
-    document.getElementById('save-plan').addEventListener('click',()=>{
-      const name=document.getElementById('plan-name').value.trim();
-      const date=document.getElementById('plan-date').value.trim();
-      const cals=Number(document.getElementById('plan-cals').value)||2000;
-      if(!name||!date){alert('Pon nombre y fecha para el plan.');return}
-      DB.plans.push({id:Date.now(),name,date,cals,items:[]}); saveDB(DB); refreshAll(); alert('Plan guardado.');
+    document.getElementById('save-plan').addEventListener('click', () => {
+      const name = document.getElementById('plan-name').value.trim();
+      const date = document.getElementById('plan-date').value.trim();
+      const cals = Number(document.getElementById('plan-cals').value) || 2000;
+      if (!name || !date) {
+        alert('Pon nombre y fecha para el plan.');
+        return;
+      }
+      const plan = { id: Date.now(), userId: currentUser.id, name, date, cals, items: [] };
+      DB.plans.push(plan);
+      saveDB(DB);
+      refreshAll();
+      alert('Plan guardado.');
     });
 
-    function refreshPlans(){
-      const c=document.getElementById('plans-list'); c.innerHTML='';
-      if(DB.plans.length===0){c.innerHTML='<div class="muted">No tienes planes guardados.</div>';return}
-      DB.plans.slice().reverse().forEach(p=>{
-        const d=document.createElement('div'); d.className='meal-item';
-        d.innerHTML=`<div><strong>${escapeHtml(p.name)}</strong><div class=muted>${p.date} · ${p.cals} kcal</div></div>
-          <div style="text-align:right"><button onclick='applyPlan(${p.id})' class="small">Aplicar</button></div>`;
-        c.appendChild(d);
-      });
-    }
-
-    window.applyPlan = function(id){
-      const plan = DB.plans.find(x=>x.id===id); if(!plan){alert('Plan no encontrado');return}
-      alert('Aplicando plan: '+plan.name+' (agregando nota en comidas)');
-      // ejemplo: añade una comida resumen al día de plan
-      const meal = {id:Date.now(),name:'Plan: '+plan.name,cal:plan.cals,prot:0,fat:0,carb:0,notes:'Plan aplicado',datetime:plan.date+' 12:00'};
-      DB.meals.push(meal); saveDB(DB); refreshAll();
-    }
-
-    // --- Recetas (búsqueda simple) ---
-    document.getElementById('btn-search').addEventListener('click',()=>{
+    document.getElementById('btn-search').addEventListener('click', () => {
       const q = document.getElementById('search-recipe').value.trim().toLowerCase();
-      const out = document.getElementById('recipes-container'); out.innerHTML='';
-      const list = DB.recipes.filter(r=>r.name.toLowerCase().includes(q)||r.ingredients.toLowerCase().includes(q));
-      if(list.length===0){out.innerHTML='<div class="muted">No se encontraron recetas. Prueba con "ensalada" o "pollo".</div>';return}
-      list.forEach(r=>{
-        const card = document.createElement('div'); card.className='card';
+      const out = document.getElementById('recipes-container');
+      out.innerHTML = '';
+      const list = DB.recipes.filter(r =>
+        r.name.toLowerCase().includes(q) || r.ingredients.toLowerCase().includes(q)
+      );
+      if (list.length === 0) {
+        out.innerHTML = '<div class="muted">No se encontraron recetas. Prueba con "ensalada" o "pollo".</div>';
+        return;
+      }
+      list.forEach(r => {
+        const card = document.createElement('div');
+        card.className = 'card';
         card.innerHTML = `<h4>${escapeHtml(r.name)} <span class=muted style="font-size:13px">(${r.cal} kcal)</span></h4>
           <div class=muted>${escapeHtml(r.ingredients)}</div>
           <div style="margin-top:8px;text-align:right"><button onclick='addRecipeToMeals(${r.id})' class="primary">Añadir como comida</button></div>`;
@@ -291,72 +400,210 @@
       });
     });
 
-    window.addRecipeToMeals = function(id){
-      const r = DB.recipes.find(x=>x.id===id); if(!r){alert('Receta no encontrada');return}
-      const meal = {id:Date.now(),name:r.name,cal:r.cal,prot:r.prot,fat:r.fat,carb:r.carb,notes:'Receta',datetime:new Date().toISOString().slice(0,16).replace('T',' ')};
-      DB.meals.push(meal); saveDB(DB); refreshAll(); alert('Receta añadida como comida.');
+    window.addRecipeToMeals = function (id) {
+      const r = DB.recipes.find(x => x.id === id);
+      if (!r) { alert('Receta no encontrada'); return; }
+      const meal = {
+        id: Date.now(),
+        userId: currentUser.id,
+        name: r.name,
+        cal: r.cal,
+        prot: r.prot,
+        fat: r.fat,
+        carb: r.carb,
+        notes: 'Receta',
+        datetime: new Date().toISOString().slice(0, 16).replace('T', ' ')
+      };
+      DB.meals.push(meal);
+      saveDB(DB);
+      refreshAll();
+      alert('Receta añadida como comida.');
+    };
+
+    // — Funcionalidad de doctor: ver pacientes y enviar mensajes —
+
+    function refreshPatientsList() {
+      const listEl = document.getElementById('patients-list');
+      listEl.innerHTML = '';
+      DB.users.filter(u => u.role === 'paciente').forEach(p => {
+        const div = document.createElement('div');
+        div.className = 'meal-item'; // reutilizando estilo
+        div.innerHTML = `<div><strong>${escapeHtml(p.username)}</strong><div class="muted">ID: ${p.id}</div></div>`;
+        listEl.appendChild(div);
+      });
+
+      const sel = document.getElementById('select-patient');
+      sel.innerHTML = '';
+      DB.users.filter(u => u.role === 'paciente').forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p.id;
+        opt.innerText = `${p.username} (ID ${p.id})`;
+        sel.appendChild(opt);
+      });
     }
 
-    // --- Análisis (gráfico) ---
+    document.getElementById('btn-send-msg').addEventListener('click', () => {
+      const pid = Number(document.getElementById('select-patient').value);
+      const subj = document.getElementById('msg-subject').value.trim();
+      const body = document.getElementById('msg-body').value.trim();
+      if (!subj || !body) { alert('Poner asunto y mensaje.'); return; }
+      const paciente = DB.users.find(u => u.id === pid);
+      if (!paciente) { alert('Paciente no encontrado.'); return; }
+      paciente.messages.push({ from: currentUser.id, subject: subj, body: body, date: new Date().toISOString() });
+      saveDB(DB);
+      alert('Mensaje enviado a ' + paciente.username);
+      // limpiar
+      document.getElementById('msg-subject').value = '';
+      document.getElementById('msg-body').value = '';
+      refreshPatientsList();
+    });
+
+    // — Render pacientes y mensajes —
+
+    function refreshMessages() {
+      const div = document.getElementById('messages-list');
+      div.innerHTML = '';
+      if (!currentUser.messages || currentUser.messages.length === 0) {
+        div.innerHTML = '<div class="muted">No tienes mensajes del doctor.</div>';
+        return;
+      }
+      currentUser.messages.forEach(msg => {
+        const fromDoctor = DB.users.find(u => u.id === msg.from);
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `<strong>${escapeHtml(msg.subject)}</strong>
+          <div class="muted small">De: Doctor · ${new Date(msg.date).toLocaleString()}</div>
+          <p>${escapeHtml(msg.body)}</p>`;
+        div.appendChild(card);
+      });
+    }
+
+    // — Funciones de resumen y gráficas adaptadas al usuario —
+
+    function refreshMealsList() {
+      const container = document.getElementById('meals-list');
+      container.innerHTML = '';
+      const slice = DB.meals.filter(m => m.userId === currentUser.id)
+                          .slice(-30).reverse();
+      if (slice.length === 0) {
+        container.innerHTML = '<div class="muted">Aún no has registrado comidas.</div>';
+        return;
+      }
+      slice.forEach(m => {
+        const div = document.createElement('div');
+        div.className = 'meal-item';
+        div.innerHTML = `<div><strong>${escapeHtml(m.name)}</strong><div class=muted>${m.datetime}</div></div><div class=muted>${m.cal} kcal</div>`;
+        container.appendChild(div);
+      });
+    }
+
+    function refreshPlans() {
+      const c = document.getElementById('plans-list');
+      c.innerHTML = '';
+      const plansUser = DB.plans.filter(p => p.userId === currentUser.id);
+      if (plansUser.length === 0) {
+        c.innerHTML = '<div class="muted">No tienes planes guardados.</div>';
+        return;
+      }
+      plansUser.slice().reverse().forEach(p => {
+        const d = document.createElement('div');
+        d.className = 'meal-item';
+        d.innerHTML = `<div><strong>${escapeHtml(p.name)}</strong><div class=muted>${p.date} · ${p.cals} kcal</div></div>
+          <div style="text-align:right"><button onclick='applyPlan(${p.id})' class="small">Aplicar</button></div>`;
+        c.appendChild(d);
+      });
+    }
+
+    window.applyPlan = function (planId) {
+      const plan = DB.plans.find(p => p.id === planId && p.userId === currentUser.id);
+      if (!plan) { alert('Plan no encontrado'); return; }
+      const meal = {
+        id: Date.now(),
+        userId: currentUser.id,
+        name: 'Plan: ' + plan.name,
+        cal: plan.cals,
+        prot: 0,
+        fat: 0,
+        carb: 0,
+        notes: 'Plan aplicado',
+        datetime: plan.date + ' 12:00'
+      };
+      DB.meals.push(meal);
+      saveDB(DB);
+      refreshAll();
+    };
+
     let calsChart = null;
-    function drawCharts(){
+    function drawCharts() {
       const ctx = document.getElementById('chart-cals').getContext('2d');
       const last7 = getLastNDaysMeals(7);
-      const labels = last7.map(d=>d.label);
-      const cals = last7.map(d=>d.total);
-      if(calsChart) calsChart.destroy();
-      calsChart = new Chart(ctx,{type:'bar',data:{labels, datasets:[{label:'kcal/día',data:cals}]},options:{responsive:true,plugins:{legend:{display:false}}}});
+      const labels = last7.map(d => d.label);
+      const cals = last7.map(d => d.total);
+      if (calsChart) calsChart.destroy();
+      calsChart = new Chart(ctx, {
+        type: 'bar',
+        data: { labels, datasets: [{ label: 'kcal/día', data: cals }] },
+        options: { responsive: true, plugins: { legend: { display: false } } }
+      });
     }
 
-    function getLastNDaysMeals(n){
+    function getLastNDaysMeals(n) {
       const days = [];
-      for(let i=n-1;i>=0;i--){
-        const d = new Date(); d.setDate(d.getDate()-i); const key = d.toISOString().slice(0,10);
-        const total = DB.meals.filter(m=>m.datetime.startsWith(key)).reduce((s,m)=>s+m.cal,0);
-        days.push({label:key,total});
+      for (let i = n - 1; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const key = d.toISOString().slice(0, 10);
+        const total = DB.meals.filter(m => m.userId === currentUser.id && m.datetime.startsWith(key))
+                             .reduce((s, m) => s + m.cal, 0);
+        days.push({ label: key, total });
       }
       return days;
     }
 
-    // --- Resumen del día ---
-    function refreshSummary(){
-      const todayKey = new Date().toISOString().slice(0,10);
-      const todayMeals = DB.meals.filter(m=>m.datetime.startsWith(todayKey));
-      const tot = todayMeals.reduce((s,m)=>s+m.cal,0);
-      const prot = todayMeals.reduce((s,m)=>s+m.prot,0);
-      const fat = todayMeals.reduce((s,m)=>s+m.fat,0);
-      const carb = todayMeals.reduce((s,m)=>s+m.carb,0);
-      document.getElementById('today-cal').innerText = 'Calorías: '+tot+' kcal';
-      document.getElementById('today-macros').innerText = `Macros — Proteínas: ${prot} g · Grasas: ${fat} g · Carbs: ${carb} g`;
+    function refreshSummary() {
+      const todayKey = new Date().toISOString().slice(0, 10);
+      const todayMeals = DB.meals.filter(m => m.userId === currentUser.id && m.datetime.startsWith(todayKey));
+      const tot = todayMeals.reduce((s, m) => s + m.cal, 0);
+      const prot = todayMeals.reduce((s, m) => s + m.prot, 0);
+      const fat = todayMeals.reduce((s, m) => s + m.fat, 0);
+      const carb = todayMeals.reduce((s, m) => s + m.carb, 0);
+      document.getElementById('today-cal').innerText = 'Calorías: ' + tot + ' kcal';
+      document.getElementById('today-macros').innerText =
+        `Macros — Proteínas: ${prot} g · Grasas: ${fat} g · Carbs: ${carb} g`;
 
-      const nextPlan = DB.plans.slice().sort((a,b)=>a.date.localeCompare(b.date)).find(p=>p.date>=todayKey);
-      document.getElementById('next-plan').innerText = nextPlan ? `${nextPlan.name} · ${nextPlan.date} · ${nextPlan.cals} kcal` : 'No hay planes programados';
+      const futurePlans = DB.plans
+        .filter(p => p.userId === currentUser.id)
+        .slice().sort((a, b) => a.date.localeCompare(b.date));
+      const nextPlan = futurePlans.find(p => p.date >= todayKey);
+      document.getElementById('next-plan').innerText =
+        nextPlan ? `${nextPlan.name} · ${nextPlan.date} · ${nextPlan.cals} kcal` : 'No hay planes programados';
 
-      const top = DB.recipes.slice(0,3).map(r=>r.name).join(' · ');
+      const top = DB.recipes.slice(0, 3).map(r => r.name).join(' · ');
       document.getElementById('top-recipes').innerText = top || 'Añade recetas a tu base.';
     }
 
-    // --- Refresh global ---
-    function refreshAll(){
-      refreshMealsList(); refreshPlans(); refreshSummary(); drawCharts();
+    function refreshAll() {
+      if (!currentUser) return;
+      if (currentUser.role === 'paciente') {
+        refreshMealsList();
+        refreshPlans();
+        refreshSummary();
+        drawCharts();
+        refreshMessages();
+      } else if (currentUser.role === 'doctor') {
+        refreshPatientsList();
+      }
     }
 
-    // --- Inicializar UI y datos ---
-    refreshAll();
-
-    // --- Helper para exportar e importar DB (útil para GitHub) ---
-    function exportDB(){
-      const a = document.createElement('a'); a.href = 'data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(DB));
-      a.download = 'healthy_eats_export.json'; a.click();
-    }
-    function importDB(json){
-      try{DB = JSON.parse(json); saveDB(DB); refreshAll(); alert('Importado OK');}catch(e){alert('Error al importar: '+e)}
+    function escapeHtml(s) {
+      return String(s)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;');
     }
 
-    // Exponer utilidades en ventana para pruebas
-    window.HE = {DB,saveDB,loadDB,exportDB,importDB};
-
-    // Nota: este prototipo guarda datos solo en el navegador (localStorage). Para multiusuario o seguridad, se necesita backend y autenticación.
+    // Inicializa navegación y datos
+    // (cuando ya se logueó, setupNavForRole es llamado)
   </script>
 </body>
 </html>
